@@ -75,7 +75,7 @@ RUN cd crates/stark_hash_python \
 #######################################
 # Stage 2: Build the Python libraries #
 #######################################
-FROM python:3.9-slim-bullseye AS python-builder
+FROM python:3.12.7-slim-bullseye AS python-builder
 ARG TARGETARCH
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libgmp-dev gcc && rm -rf /var/lib/apt/lists/*
@@ -97,7 +97,7 @@ RUN find ${PY_PATH} -type d -a -name test -exec rm -rf '{}' + \
 #######################
 # Note that we're explicitly using the Debian bullseye image to make sure we're
 # compatible with the Rust builder we've built the pathfinder executable in.
-FROM python:3.9-slim-bullseye AS runner
+FROM python:3.12.7-slim-bullseye AS runner
 ARG TARGETARCH
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libgmp10 tini && rm -rf /var/lib/apt/lists/*
